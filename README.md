@@ -1,6 +1,6 @@
 # GettingStartedCleanArchitectureProject
 
-# 🧼 Getting Started – Clean Architecture Project
+# Getting Started – Clean Architecture Project
 
 This guide will help you set up and run the project on your local machine for development and testing purposes.
 
@@ -19,12 +19,13 @@ Before starting, ensure you have the following tools installed:
 
 ---
 
-## 1. Clone the Repository
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/your-username/your-repository.git
 cd your-repository
 ```
+Note: Replace your-username/your-repository with the actual GitHub path.
 
 ### 2. Restore NuGet Packages
 Restore all dependencies:
@@ -68,5 +69,76 @@ If the solution provides Docker support:
 docker-compose up --build
 ```
 Note: Make sure docker and docker-compose are installed and running.
+
+---
+
+## Project Structure Overview
+
+```bash
+📦 Root
+├── 🧠 Domain
+│   ├── DomainEvents
+│   ├── Entities
+│   ├── Enumerators
+│   ├── Constants
+│   ├── Exceptions
+│   ├── Repositories
+│   ├── Shared
+│   └── ValueObjects
+│
+├── 📋 Application
+│   ├── Abstractions
+│   │   ├── Data
+│   │   ├── Email
+│   │   └── Messaging
+│   ├── Behaviors
+│   ├── Contracts
+│   ├── User
+│   │   ├── Commands
+│   │   └── Queries
+│   ├── Order
+│   │   ├── Commands
+│   │   └── Queries
+│   └── UseCases *(optional)*
+│
+├── 🏗 Infrastructure
+│   ├── Data
+│   │   ├── Repositories
+│   │   ├── Migrations
+│   │   └── DataContext
+│   │       └── ApplicationDbContext.cs
+│   ├── Messaging
+│   ├── Services
+│   └── Jobs
+│
+└── 🌐 Presentation
+    ├── Controllers
+    ├── Middlewares
+    ├── Extensions
+    ├── DTOs
+    ├── Endpoints *(Minimal APIs – optional)*
+    └── ViewModels *(optional for UI rendering)*
+```
+
+### Architecture Principles
+This project follows the Clean Architecture approach:
+- Domain Layer: Pure C# domain logic, no dependencies.
+- Application Layer: Use cases, interfaces, and CQRS with MediatR.
+- Infrastructure Layer: Technical implementations (e.g., database, messaging).
+- Presentation Layer: API controllers, middleware, and endpoints.
+
+### Additional Notes
+Environment-specific configuration is handled via .json files and/or environment variables.
+
+- Secrets can be managed with:
+  - dotnet user-secrets (local development)
+  - Azure Key Vault or AWS Secrets Manager (production)
+
+- This solution uses:
+  - MediatR for request/response handling
+  - FluentValidation for model validation
+  - Serilog or equivalent for structured logging
+
+
 
 
